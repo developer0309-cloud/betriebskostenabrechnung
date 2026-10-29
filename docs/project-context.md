@@ -39,7 +39,7 @@ Jährliche Betriebskostenabrechnung für die eigenen Mieter erstellen.
 
 - Repository: `C:\github\betriebskostenabrechnung` auf DESKTOP-I3UF79N
 - GitHub: https://github.com/developer0309-cloud/betriebskostenabrechnung
-- Arbeitsbranch: `init` (noch ohne Commit)
+- Arbeitsbranch: `init`, erster Commit auf origin/init
 
 ## Offen
 
