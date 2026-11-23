@@ -20,7 +20,7 @@ quarkus:
           methods: GET
   application:
     name: betriebskostenabrechnung
-    version: "0.1.0"
+    version: "0.2.0"
   datasource:
     db-kind: h2
     jdbc:

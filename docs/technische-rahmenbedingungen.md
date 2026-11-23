@@ -68,6 +68,7 @@ Lokal mit Anmeldung. Benutzername und Passwort werden in der Quarkus-Applikation
 - Die Identifikation eines Mietvertrags hat die Form `<Gebäudekürzel>-<Mieteinheit>-<Erstelldatum yyyy-MM-dd>`. Das Erstelldatum ist der Tag der Anlage in der Anwendung.
 - Mieteinheiten werden nur gewählt. Sie werden nicht neu angelegt, geändert oder gelöscht.
 - Die Zuordnung von Kostenart zu Kostenschlüssel am Mietvertrag folgt später und ist nicht Teil von 0.1.0.
+- Kosten sind Belege unter `/api/belege`. Ein Beleg hat eine technische Identifikation, Valutadatum, Betrag in EUR, eine optionale Beschreibung, eine Kostenart und das Kennzeichen direkt oder indirekt. Direkte Kosten erzwingen die Kostenart Direkte Kosten und einen Mieter. Indirekte Kosten haben eine der übrigen Kostenarten und keinen Mieter. Die Oberfläche nennt den Bereich Kosten und sperrt die Kostenart bei direkten Belegen.
 
 ## Persistenz
 
