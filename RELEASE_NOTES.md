@@ -2,6 +2,10 @@
 
 Versionierung nach SemVer.
 
+## 0.2.0
+
+- CRUD für Belege im Bereich Kosten: Valutadatum, Betrag, optionale Beschreibung, Kostenart und Kennzeichen direkt oder indirekt. Direkte Belege haben fest die Kostenart Direkte Kosten und einen Mieter. Indirekte Belege haben eine der übrigen Kostenarten. Die Identifikation entsteht bei der Anlage.
+
 ## 0.1.0
 
 Erste lokale Fassung.

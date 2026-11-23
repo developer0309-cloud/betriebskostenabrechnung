@@ -20,8 +20,8 @@ Ein Kontext. Bestand und die jährliche Verteilung der Betriebskosten gehören z
 | Mieter | Eine oder mehrere natürliche Personen, ohne eigenen Namen |
 | Mietvertrag | Regelt die Beziehung genau einer Mieteinheit und genau eines Mieters. Die Identifikation lautet `<Gebäudekürzel>-<Mieteinheit>-<Erstelldatum yyyy-MM-dd>`. Hat tagesbasierten Vertragsbeginn und tagesbasiertes Vertragsende. Erfasst je Kalenderjahr die geleistete Betriebskostenvorauszahlung in EUR. Enthält die Zuordnung von Kostenart zu Kostenschlüssel |
 | Verteilung | Verteilung der Betriebskosten genau einer Liegenschaft. Das Ende liegt zwölf Monate nach dem Beginn. Darin liegen Kostenarten und Belege. Eine festgestellte Verteilung bleibt unverändert |
-| Kostenart | Umlagefähige Kostengruppe nach der Betriebskostenverordnung (BetrKV). Zu ihr gehört mindestens ein Beleg. Bekannt sind Grundsteuer, Wartung Rauchwarnmelder, Allgemeinstrom, Hausreinigung, Gebäudeversicherung, Glasversicherung, Strassenreinigung, Entwässerung und Müllentsorgung |
-| Beleg | Nachweis eines Kostenbetrags innerhalb einer Kostenart |
+| Kostenart | Umlagefähige Kostengruppe nach der Betriebskostenverordnung (BetrKV). Zu ihr gehört mindestens ein Beleg. Bekannt sind Grundsteuer, Wartung Rauchwarnmelder, Allgemeinstrom, Hausreinigung, Gebäudeversicherung, Glasversicherung, Strassenreinigung, Entwässerung, Müllentsorgung und Direkte Kosten |
+| Beleg | Nachweis direkter oder indirekter Kosten. Technische Identifikation bei der Anlage, obligates Valutadatum, obligater Betrag in EUR, optionale Beschreibung, genau eine obligate Kostenart und das Kennzeichen direkt oder indirekt. Ein direkter Beleg hat fest die Kostenart Direkte Kosten und genau einen Mieter. Ein indirekter Beleg hat eine der übrigen Kostenarten und keinen Mieter |
 | Kostenschlüssel | Besteht aus einem eindeutigen Schlüsselwert und einer Beschreibung. Bekannt sind Wohnfläche mit „Umlage nach Wohnfläche in Quadratmeter“, direkt mit „Direkte Kostenzuordnung“ und RWM mit „Anzahl Rauchwarnmelder“ |
 
 Der Kontext erfasst die umlagefähigen Betriebskosten und ihre Verteilung. Der Volltext des Mietvertrags und der Zahlungsverkehr bleiben außerhalb. Hier zählen Identifikation, Vertragszeit, die je Kalenderjahr geleistete Betriebskostenvorauszahlung, die Zuordnung von Kostenart zu Kostenschlüssel, Kostenanteile und der Saldo.
@@ -137,8 +137,8 @@ Wurzel des Vorgangs einer Liegenschaft. Eine festgestellte Verteilung bleibt unv
 **Entitäten**
 
 - **Verteilung.** Verweist auf genau eine Liegenschaft. Das Ende liegt zwölf Monate nach dem Beginn. Status ist `Entwurf` oder `festgestellt`. Hat eine Fassung.
-- **Kostenart.** Kostengruppe in dieser Verteilung, mit mindestens einem Beleg. Welcher Kostenschlüssel sie verteilt, steht in der Zuordnung des Mietvertrags. Die bekannten Kostenarten sind Grundsteuer, Wartung Rauchwarnmelder, Allgemeinstrom, Hausreinigung, Gebäudeversicherung, Glasversicherung, Strassenreinigung, Entwässerung und Müllentsorgung.
-- **Beleg.** Nachweis innerhalb genau einer Kostenart. Aussteller, Belegdatum, Leistungszeitraum und Beträge sind Platzhalter.
+- **Kostenart.** Kostengruppe in dieser Verteilung, mit mindestens einem Beleg. Welcher Kostenschlüssel sie verteilt, steht in der Zuordnung des Mietvertrags. Die bekannten Kostenarten sind Grundsteuer, Wartung Rauchwarnmelder, Allgemeinstrom, Hausreinigung, Gebäudeversicherung, Glasversicherung, Strassenreinigung, Entwässerung, Müllentsorgung und Direkte Kosten.
+- **Beleg.** Nachweis direkter oder indirekter Kosten innerhalb genau einer Kostenart. Die technische Identifikation entsteht bei der Anlage und bleibt. Valutadatum und Betrag in EUR sind obligat. Die Beschreibung ist optional. Das Kennzeichen ist direkt oder indirekt. Ein direkter Beleg hat fest die Kostenart Direkte Kosten und genau einen Mieter. Ein indirekter Beleg hat eine der übrigen Kostenarten und keinen Mieter. Aussteller und Leistungszeitraum sind Platzhalter.
 
 **Wertobjekte**
 
@@ -158,7 +158,8 @@ Wurzel des Vorgangs einer Liegenschaft. Eine festgestellte Verteilung bleibt unv
 - Es gibt den Kostenschlüssel mit dem Schlüsselwert direkt und der Beschreibung „Direkte Kostenzuordnung“.
 - Es gibt den Kostenschlüssel mit dem Schlüsselwert RWM und der Beschreibung „Anzahl Rauchwarnmelder“.
 - Zu jeder Kostenart gehört mindestens ein Beleg.
-- Ein Beleg gehört zu genau einer Kostenart. Wirksam ist der Teil seines Leistungszeitraums, der in der Verteilung liegt.
+- Ein Beleg gehört zu genau einer Kostenart. Er hat genau eine technische Identifikation, genau ein Valutadatum und genau einen Betrag in EUR. Die Identifikation entsteht bei der Anlage und ändert sich nicht. Wirksam ist der Teil seines Leistungszeitraums, der in der Verteilung liegt.
+- Ein Beleg ist entweder direkt oder indirekt. Ein direkter Beleg hat fest die Kostenart Direkte Kosten und verweist auf genau einen Mieter. Ein indirekter Beleg hat eine andere bekannte Kostenart und keinen Mieter.
 - Für jeden Mietvertrag, dessen Vertragszeit die Verteilung schneidet, gibt es genau einen Beteiligungszeitraum, Kostenanteile und genau einen Saldo.
 - Ein Parkplatz hat keinen Beteiligungszeitraum und keinen Saldo.
 - Saldo gleich Kostenanteil minus angerechnete Betriebskostenvorauszahlungen.
@@ -179,8 +180,17 @@ Bekannte Kostenarten:
 - Strassenreinigung
 - Entwässerung
 - Müllentsorgung
+- Direkte Kosten
+
+Die Kostenart Direkte Kosten ist fest die Kostenart eines direkten Belegs. Sie ist nicht der Kostenschlüssel direkt. Die übrigen Kostenarten gehören zu indirekten Belegen.
 
 Die Kostenbeteiligung an Reinigungsservice, Hausmeister und Heizungswartung sagt, ob die Mieteinheit an diesen Kosten teilnimmt. Welchen Kostenschlüssel der Mietvertrag einer Kostenart zuordnet, ist noch offen.
+
+## Kosten
+
+Ein Beleg erfasst direkte oder indirekte Kosten, bevor sie einer Verteilung zugeordnet werden. Die Identifikation ist technisch und entsteht bei der Anlage. Valutadatum und Betrag in EUR sind obligat. Die Beschreibung ist optional. Das Kennzeichen ist direkt oder indirekt und obligat.
+
+Ein direkter Beleg hat fest die Kostenart Direkte Kosten und genau einen Mieter. Ein indirekter Beleg hat eine der übrigen bekannten Kostenarten und keinen Mieter.
 
 ## Platzhalter
 
@@ -190,7 +200,7 @@ Noch nicht genannt und deshalb ohne konkreten Inhalt:
 - Vorname und Nachname der natürlichen Personen
 - Vertragsbeginn, Vertragsende, die je Jahr geleistete Betriebskostenvorauszahlung und die Zuordnung von Kostenart zu Kostenschlüssel der Mietverträge
 - Konkrete Beginn- und Enddaten der Verteilungen
-- Aussteller, Daten und Beträge der Belege
+- Aussteller und Leistungszeitraum der Belege
 - Erfasste Beträge der geleisteten Betriebskostenvorauszahlung
 
 ## Offen

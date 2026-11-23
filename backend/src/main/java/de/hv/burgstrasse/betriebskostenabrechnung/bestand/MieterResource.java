@@ -54,6 +54,9 @@ public class MieterResource {
         if (Mietvertrag.count("mieter", mieter) > 0) {
             throw status(409, "Der Mieter hat einen Mietvertrag.");
         }
+        if (Beleg.count("mieter", mieter) > 0) {
+            throw status(409, "Der Mieter hat einen Beleg.");
+        }
         mieter.delete();
     }
 
