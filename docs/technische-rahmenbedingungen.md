@@ -73,7 +73,7 @@ Lokal mit Anmeldung. Benutzername und Passwort werden in der Quarkus-Applikation
 
 - Lokal liegen die Daten in einer H2-Datei. Es läuft kein eigener Datenbankserver.
 - Hibernate arbeitet unter Blaze Persistence.
-- Das Schema entsteht mit Flyway. Die lokale Datei liegt unter `backend/data/`. Liegt sie hinter den Migrationen zurück, die Dateien dort löschen und neu starten. Flyway legt den Bestand dann neu an.
+- Das Schema entsteht mit Flyway. Die lokale Datei ist `C:\Users\ctwei\OneDrive\Dokumente\Burgstrasse\Betriebskostenabrechnung\betriebskosten.mv.db`. Liegt sie hinter den Migrationen zurück, nur diese H2-Datei löschen und neu starten. Flyway legt den Bestand dann neu an. Die übrigen Dateien in dem Ordner bleiben.
 - Die Migrationen sind Standard-SQL. Damit bleibt ein späterer Wechsel der Datenbank vorbereitet.
 - Für den späteren Web-Betrieb ist H2 technisch möglich, aber ungeeignet: Dateisperren, Backup, mehrere Instanzen und das Hosting sprechen dagegen. Eher kommt dann PostgreSQL oder MySQL. Eine Server-Datenbank wird jetzt nicht festgelegt.
 
