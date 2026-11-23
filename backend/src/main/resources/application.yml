@@ -1,0 +1,85 @@
+quarkus:
+  http:
+    port: 29215
+    root-path: /betriebskostenabrechnung
+    auth:
+      permission:
+        login:
+          paths: /betriebskostenabrechnung/api/auth/login
+          policy: permit
+          methods: POST
+        api:
+          paths: /betriebskostenabrechnung/api/*
+          policy: authenticated
+        openapi:
+          paths: /betriebskostenabrechnung/q/*
+          policy: permit
+        static:
+          paths: /betriebskostenabrechnung,/betriebskostenabrechnung/,/betriebskostenabrechnung/index.html,/betriebskostenabrechnung/assets/*
+          policy: permit
+          methods: GET
+  application:
+    name: betriebskostenabrechnung
+    version: "0.1.0"
+  datasource:
+    db-kind: h2
+    jdbc:
+      url: "jdbc:h2:file:${user.dir}/data/betriebskosten;DB_CLOSE_DELAY=-1"
+  hibernate-orm:
+    schema-management:
+      strategy: none
+    packages: "de.hv.burgstrasse.betriebskostenabrechnung,com.blazebit.persistence.impl.function.entity"
+  index-dependency:
+    blaze:
+      group-id: com.blazebit
+      artifact-id: blaze-persistence-core-impl-jakarta
+  flyway:
+    migrate-at-start: true
+    locations: db/migration
+  smallrye-openapi:
+    path: /q/openapi
+  swagger-ui:
+    always-include: true
+  log:
+    console:
+      enabled: true
+    file:
+      enabled: true
+      path: logs/betriebskostenabrechnung.log
+      rotation:
+        rotate-on-boot: false
+        max-file-size: 10M
+        max-backup-index: 5
+
+# Platzhalter für den lokalen Eigentümer. Vor einem echten Betrieb ändern.
+app:
+  auth:
+    username: eigentuemer
+    password: bitte-aendern
+
+mp:
+  jwt:
+    verify:
+      issuer: betriebskostenabrechnung
+      publickey:
+        location: publicKey.pem
+
+smallrye:
+  jwt:
+    sign:
+      key:
+        location: privateKey.pem
+    new-token:
+      lifespan: 28800
+
+"%test":
+  quarkus:
+    datasource:
+      jdbc:
+        url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
+    flyway:
+      clean-at-start: true
+      clean-disabled: false
+    hibernate-orm:
+      schema-management:
+        strategy: none
